@@ -18,7 +18,6 @@ public class Exercise {
                             words[j]="END_POINT";
                         else if (i>0)
                         words[j] = words[j+1];
-                        
                     }
                 }
 
