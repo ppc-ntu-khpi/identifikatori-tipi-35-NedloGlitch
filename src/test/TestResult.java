@@ -1,12 +1,15 @@
 package test;
 
-import domain.Exercise;
+import domain.*;
+import java.util.Scanner;
 
 public class TestResult {
 
     public static void main(String[] args) {
-
-        int R=10;
-        System.out.println("Area of a circle for R="+R+"m is "+Exercise.Calculate(R)+"m"+'\u00B2');
+        System.out.print("Enter a string : ");
+        Scanner scanner = new Scanner(System.in);
+        String inputString = scanner.nextLine();
+        //System.out.println("String read from console is : \n"+inputString);
+        System.out.println("Encoded message : " + Exercise.Calculate(inputString));
     }
 }
