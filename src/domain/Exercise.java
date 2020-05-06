@@ -12,9 +12,7 @@ public class Exercise {
         String[] words = sentence.split(" ");  
         byte arrlength = 0;
         byte longest = 0;
-        /**
-         * Calculating the longest word
-         */
+        /** Calculating the longest word */
         for(byte i=0;i<words.length;i++){
             if(words[i].length()>longest && words[i]!="END_POINT")
                     longest=(byte) words[i].length();
@@ -25,52 +23,47 @@ public class Exercise {
          * Words in array shift to the left, and "END_POINT" is set at the end of words.
          */
         for(byte i=0;i<words.length;i++){
-            /** Unite with left word*/
+            /** Uniting with left word. It uses word before to check, if it can be united with present word */
             if(i>0 && words[i-1].length()<=longest && words[i].length() < longest-words[i-1].length()){
                 words[i-1] = words[i-1] + "_" + words[i];
                 for(byte j=(byte) (i);j<words.length;j++){
                     if(j==words.length-1 || words[j+1] == "END_POINT")
                         words[j]="END_POINT";
-                    else if (i>0)
-                    words[j] = words[j+1];
+                    else
+                        words[j] = words[j+1];
                     }
                 }
-                /** Unite with right word*/
+            /** Uniting with right word. It uses word after to check, if it can be united with present word */
             else if(i<words.length-1 && words[i+1]!="END_POINT"&& words[i+1].length()<=longest && words[i].length() < longest-words[i+1].length()){
                 words[i] = words[i] + "_" + words[i+1];
                 for(byte j=(byte) (i+1);j<words.length;j++){
                     if(j==words.length-1 || words[j+1] == "END_POINT")
                         words[j]="END_POINT";
                     else
-                    words[j] = words[j+1];
+                        words[j] = words[j+1];
                     }
                 }
-                /** 
-                 * Because "words" count changes if words unite, arrlength is calculated
-                 */
+            /** Because "words" count changes if words unite, arrlength is calculated */
             if(words[i]!="END_POINT"){
                 arrlength++;
             }
         }
-        /**
-         * Now that words are optimized, they are separated into sequence of characters
-         */
+        /** Now that "words" are optimized, they are separated into sequence of characters in double array "symbols" */
         char[][] symbols = new char[arrlength][longest]; 
         for(byte i=0;i<arrlength;i++){ 
             char[] temp = words[i].toCharArray(); 
             for(byte j=0;j<words[i].length();j++){ 
                 symbols[i][j]=temp[j];
             }
-            /** When it's not enough space in word to be equal to longest, this cycle fills in "_" */
+            /** When it's not enough space in word to be equal to longest, this cycle fills gap with "_" */
             for(byte j=(byte) words[i].length();j<longest;j++){
                 symbols[i][j]='_';
             }
         }
-
-        /** Finally, "result" string is filled up with letters, to form encrypted message */
+        /** Finally, "result" string is filled up with letters from "symbols", to form encrypted message */
         String result = "";
-        for(byte i=0;i<longest;i++){ //Иду по словам
-            for(byte j=0;j<arrlength;j++) //Иду по буквам
+        for(byte i=0;i<longest;i++){ 
+            for(byte j=0;j<arrlength;j++) 
                 result = result + symbols[j][i];
         }
         result = result + "\nMessage encoded with " + longest + " letters shift";
